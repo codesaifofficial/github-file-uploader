@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub File Uploader</title>
+</head>
+<body>
+    <h1>Upload File to GitHub</h1>
+    <input type="file" id="fileInput" />
+    <button onclick="uploadFile()">Upload to GitHub</button>
+    <div id="status"></div>
+
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const status = document.getElementById('status');
+
+            if (fileInput.files.length === 0) {
+                status.innerText = 'Please select a file first.';
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const formData = new FormData();
+            formData.append("file", file);
+
+            status.innerText = 'Uploading file...';
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    status.innerText = `File uploaded successfully: ${result.fileName}`;
+                } else {
+                    status.innerText = 'Failed to upload file.';
+                }
+            } catch (error) {
+                status.innerText = 'Error uploading file: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>

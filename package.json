@@ -1,0 +1,15 @@
+{
+  "name": "github-file-uploader",
+  "version": "1.0.0",
+  "description": "File Uploader to GitHub",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "multer": "^1.4.2",
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0"
+  }
+}
